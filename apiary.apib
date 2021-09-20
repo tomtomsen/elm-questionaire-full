@@ -1,0 +1,226 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+
+# elm-qustionaire
+
+Polls is a simple API allowing consumers to view polls and vote in them.
+
+## Questionaire Collection [/questionaire]
+
+### List All Questions [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 2048
+                    }, {
+                        "choice": "Python",
+                        "votes": 1024
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 512
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 256
+                    }
+                ]
+            }
+        ]
+
+### Create a New Question [POST]
+
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
+
++ Request (application/json)
+
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
+            
+## Questionaire Collection [/questionaire/{id}]
+
++ Parameters
+
+    + id: 1 (number) - An unique identifier of the question.
+
+### Show a Questionaire [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "title": "Favourite programming language?",
+            "published_at": "2015-08-05T08:40:51.620Z",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Favourite programming language?",
+                    "choices": [
+                        {
+                            "choice": "Swift"
+                        }, {
+                            "choice": "Python"
+                        }, {
+                            "choice": "Objective-C"
+                        }, {
+                            "choice": "Ruby"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "question": "Favourite programming language?",
+                    "choices": [
+                        {
+                            "choice": "Swift"
+                        }, {
+                            "choice": "Python"
+                        }, {
+                            "choice": "Objective-C"
+                        }, {
+                            "choice": "Ruby"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "question": "Favourite programming language?",
+                    "choices": [
+                        {
+                            "choice": "Swift"
+                        }, {
+                            "choice": "Python"
+                        }, {
+                            "choice": "Objective-C"
+                        }, {
+                            "choice": "Ruby"
+                        }
+                    ]
+                }
+            ]
+        }
+
+### Answers Collection [/questionaire/{id}/answers]
+
+
++ Parameters
+
+    + id: 1 (number) - An unique identifier of the question.
+
+### Create Answers [POST]
+
++ Request (application/json)
+
+        {
+            "answers": [
+                {
+                    "question": 1,
+                    "choice": "Swift"
+                }, {
+                    "question": 2,
+                    "choice": "Python"
+                }, {
+                    "question": 3,
+                    "choice": "Objective-C"
+                }, {
+                    "question": 4,
+                    "choice": "Ruby"
+                }
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /questionaire/2/answers
+
+    + Body
+
+            {
+                "id": 1111,
+                "submitted_at": "2015-08-05T08:40:51.620Z",
+                "answers": [
+                    {
+                        "question": 1,
+                        "choice": "Swift"
+                    }, {
+                        "question": 2,
+                        "choice": "Python"
+                    }, {
+                        "question": 3,
+                        "choice": "Objective-C"
+                    }, {
+                        "question": 4,
+                        "choice": "Ruby"
+                    }
+                ]
+            }
+
+### List All Answers [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 111,
+                "submitted_at": "2015-08-05T08:40:51.620Z",
+                "answers": [
+                    {
+                        "question": 1,
+                        "choice": "Swift"
+                    }, {
+                        "question": 2,
+                        "choice": "Python"
+                    }, {
+                        "question": 3,
+                        "choice": "Objective-C"
+                    }, {
+                        "question": 4,
+                        "choice": "Ruby"
+                    }
+                ]
+            }
+        ]
